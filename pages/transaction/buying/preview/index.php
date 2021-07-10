@@ -5,16 +5,16 @@
     </div>
 </div>
 <div class="row">
-    <a href="<?php echo $base_url."pembelian"; ?>" title="Pembelian" class='btn btn-success'><span class="fa fa-cart-plus"></span> Beli</a>
+    <a href="<?php echo $base_url."penjualan"; ?>" title="Pembelian" class='btn btn-success'><span class="fa fa-shopping-cart"></span> Penjualan</a>
     <div class="clearfix"><br></div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-        	<b>REVIEW PEMBELIAN</b>
+        	<b>REVIEW PENJUALAN</b>
         </div>
     	<div class="panel-body">
     		<div class="panel-body">
     			<!-- Filter Date -->
-    			<form class="form-inline text-right">
+    			<form class="form-inline text-right" action="#">
     				<div class="form-group">
     					Filter Tanggal: 
     				</div>
@@ -30,7 +30,9 @@
                            <option value="D">Tidak Aktif</option>
                        </select>
                     </div>
-    				<button class="btn btn-default" id="buttonSearch"><i class="fa fa-search"></i></button>
+    				<button class="btn btn-default" id="buttonPreviewSelling">
+                        <i class="fa fa-search"></i>
+                    </button>
     			</form>
     			<div class="clearfix"><br></div>
     			<legend></legend>
@@ -62,7 +64,7 @@
         $("#fetchDeleteTransaction").html("<center><img src='<?php echo $base_url."assets/images/load.gif" ?>' width='50' height='50'/><br><i> Sedang Proses ...</i></center>");
         $.ajax({
             type: 'get',
-            url: '<?php echo $base_url."pages/transaction/buying/preview/cancelConfirm.php" ?>',
+            url: '<?php echo $base_url."pages/transaction/selling/preview/cancelConfirm.php" ?>',
             data: 'invoice_number='+invoice_number,
             success : function(data){
                 $('#fetchDeleteTransaction').html(data);//menampilkan data ke dalam modal
@@ -76,7 +78,7 @@
         $("#fetchDetailTransaction").html("<center><img src='<?php echo $base_url."assets/images/load.gif" ?>' width='50' height='50'/><br><i> Sedang Proses ...</i></center>");
         $.ajax({
             type: 'get',
-            url: '<?php echo $base_url."pages/transaction/buying/preview/detail.php" ?>',
+            url: '<?php echo $base_url."pages/transaction/selling/preview/detail.php" ?>',
             data: 'invoice_number='+invoice_number,
             success : function(data){
                 $('#fetchDetailTransaction').html(data);//menampilkan data ke dalam modal
@@ -95,19 +97,19 @@
         }
     );
 
-    function closeForm(){
+    function closeFormReviewSelling(){
         $('#deleteTransactionConfirm').modal('hide');
     }
 
 	function disabledForm(){
 		document.getElementById('tgl_awal').disabled = true;
 		document.getElementById('tgl_akhir').disabled = true;
-		document.getElementById('buttonSearch').disabled = true;
+		document.getElementById('buttonPreviewSelling').disabled = true;
 	}
 	function enabledForm(){
 		document.getElementById('tgl_awal').disabled = false;
 		document.getElementById('tgl_akhir').disabled = false;
-		document.getElementById('buttonSearch').disabled = false;
+		document.getElementById('buttonPreviewSelling').disabled = false;
 	}
 
     function enabledDelete(){
@@ -126,41 +128,46 @@
         disabledForm();
         $("#contentReview").html("<center><img src='<?php echo $base_url."assets/images/load.gif" ?>' width='50' height='50'/><font size='2'>Sedang Proses...</font></center>");
     }
-	function LoadReviewTransaction(){
+	function LoadReviewTransactionSelling(){
         var tgl_awal    = $('#tgl_awal').val();
         var tgl_akhir   = $('#tgl_akhir').val();
         var status      = $('#status').val();
 
         loading();
         $.ajax({
-            type:"get",
-            url:"<?php echo $base_url."pages/transaction/buying/preview/read.php" ?>",
-            data:"tgl_awal="+tgl_awal+"&tgl_akhir="+tgl_akhir+"&status="+status,
+            url:"pages/transaction/selling/preview/read.php?tgl_awal="+tgl_awal+"&tgl_akhir="+tgl_akhir+"&status="+status,
             success:function(data){
             $("#contentReview").html(data);
             }
         }); 
     }
 
-	LoadReviewTransaction();
+	LoadReviewTransactionSelling();
 
-    $('#buttonSearch').click(function(event) {
-        if ($('#tgl_awal').val() != '' && $('#tgl_akhir').val() == '') {
-            toastr['error']('Pilih Tanggal Akhir!');
+    $('#buttonPreviewSelling').on('click', function(e) {
+        if ($('#tgl_awal').val() == '' && $('#tgl_akhir').val() == '') {
+            $.notify('Harus Pilih Tanggal!', 'error');
+            $('#tgl_awal').focus();
+        }else if ($('#tgl_awal').val() != '' && $('#tgl_akhir').val() == '') {
+            $.notify('Pilih Tanggal Akhir!', 'error');
             $('#tgl_akhir').focus();
         }else if ($('#tgl_akhir').val() != '' && $('#tgl_awal').val() == '') {
-            toastr['error']('Pilih Tanggal Awal!');
+            $.notify('Pilih Tanggal Awal!', 'error');
             $('#tgl_awal').focus();
         }else {
-            LoadReviewTransaction();
+            LoadReviewTransactionSelling();
         }
     });
+
+    $('#status').on('change', function(e) {
+        LoadReviewTransactionSelling();
+    })
 </script>
 
 
 <?php 
   // log Activity
-  $insertLogData = log_insert('READ', 'Akses Menu Review Transaksi Pembelian', $ip_address, $os, $browser);
+  $insertLogData = log_insert('READ', 'Akses Menu Review Transaksi Penjualan', $ip_address, $os, $browser);
   $queryInsertLogData = mysqli_query($config, $insertLogData);
   if (!$queryInsertLogData) {
     echo "<span class='alert alert-danger'>Error Query Insert Log</span>";

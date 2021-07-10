@@ -4,33 +4,29 @@ function showOmset() {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
     $("#showOmset").html(loadImage);
-    $("#showOmset").load('pages/dashboard/totalOmset.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
+    $("#showOmset").load('pages/dashboard/selling/sellingTotalOmset.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Selling Total
 function showTotalSelling() {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
     $("#showTotalSellingTransaction").html(loadImage);
-    $("#showTotalSellingTransaction").load('pages/dashboard/totalSellingTransaction.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
+    $("#showTotalSellingTransaction").load('pages/dashboard/selling/sellingTotalTransaction.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Total Product Selling
 function showTotalProductSelling() {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
     $("#showTotalProductSelling").html(loadImage);
-    $("#showTotalProductSelling").load('pages/dashboard/totalProductSelling.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
+    $("#showTotalProductSelling").load('pages/dashboard/selling/sellingTotalProduct.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Total Customer
 function showTotalCustomer() {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
     $("#showTotalCustomer").html(loadImage);
-    $("#showTotalCustomer").load('pages/dashboard/totalCustomer.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
+    $("#showTotalCustomer").load('pages/dashboard/selling/sellingTotalCustomer.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Expire Date
 function showProductExpired() {
     $("#showProductExpired").html(loadImage);
@@ -38,7 +34,6 @@ function showProductExpired() {
     $("#showProductExpired").load('pages/dashboard/productExpired.php?txtExpired=' + txtExpired);
     $('#txtExpired').val('');
 }
-
 // Product Stock
 function showProductStock() {
     $("#showProductStock").html(loadImage);
@@ -46,15 +41,12 @@ function showProductStock() {
     $("#showProductStock").load('pages/dashboard/productStock.php?txtStock=' + txtStock);
     $('#txtStock').val('');
 }
-
 // Cart Selling
 function executeDeleteCartSelling() {
     $("#showExecuteDeleteCartSelling").html(loadImage);
     // var txtStock = $('#txtStock').val();
     $("#showExecuteDeleteCartSelling").load('pages/autoQuery/deleteCartSelling.php');
 }
-
-
 // Chart Selling Product
 function showChartSellingPerProduct() {
     var monthOption = $('#monthOption').val();
@@ -62,7 +54,6 @@ function showChartSellingPerProduct() {
     $("#chartTransactionSellingProduct").html(loadImage);
     $("#chartTransactionSellingProduct").load('pages/dashboard/chart/line_chartSellingProduct.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Chart Selling Transaction
 function showChartSelling() {
     var monthOption = $('#monthOption').val();
@@ -70,7 +61,6 @@ function showChartSelling() {
     $("#chartTransactionSelling").html(loadImage);
     $("#chartTransactionSelling").load('pages/dashboard/chart/line_chartSelling.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Chart Income Selling
 function showChartIncome() {
     var monthOption = $('#monthOption').val();
@@ -78,7 +68,6 @@ function showChartIncome() {
     $("#chartSellingIncome").html(loadImage);
     $("#chartSellingIncome").load('pages/dashboard/chart/bar_chartSellingIncome.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 // Chart Best Selling
 function showChartBestIncome() {
     var monthOption = $('#monthOption').val();
@@ -86,9 +75,7 @@ function showChartBestIncome() {
     $("#chartBestSelling").html(loadImage);
     $("#chartBestSelling").load('pages/dashboard/chart/bar_chartBestSelling.php?monthOption=' + monthOption + '&yearOption=' + yearOption);
 }
-
 $('#btnFilter').on('click', function (e) {
-
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
     if (monthOption != '' && yearOption == '') {
@@ -108,7 +95,6 @@ $('#btnFilter').on('click', function (e) {
         showChartSellingPerProduct()
     }
 });
-
 $('#monthOption').on('change', function (e) {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
@@ -125,7 +111,6 @@ $('#monthOption').on('change', function (e) {
         showChartSellingPerProduct()
     }
 });
-
 $('#yearOption').on('change', function (e) {
     var monthOption = $('#monthOption').val();
     var yearOption = $('#yearOption').val();
@@ -143,50 +128,17 @@ $('#yearOption').on('change', function (e) {
         showChartSellingPerProduct()
     }
 });
+$('#buttonShowOmset').on('click', function (e) {showOmset();});
+$('#buttonShowTotalSelling').on('click', function (e) {showTotalSelling();});
+$('#buttonShowTotalCustomer').on('click', function (e) {showTotalCustomer();});
+$('#buttonShowTotalProductSelling').on('click', function (e) {showTotalProductSelling();});
+$('#buttonShowProductExpired').on('click', function (e) {showProductExpired();});
+$('#buttonShowProductStock').on('click', function (e) {showProductStock();});
+$('#buttonTxtStock').on('click', function (e) {showProductStock();});
+$('#buttonTxtExpired').on('click', function (e) {showProductExpired();});
 
-$('#buttonShowOmset').on('click', function (e) {
-    showOmset();
-});
-
-$('#buttonShowTotalSelling').on('click', function (e) {
-    showTotalSelling();
-});
-
-$('#buttonShowTotalCustomer').on('click', function (e) {
-    showTotalCustomer();
-});
-
-$('#buttonShowTotalProductSelling').on('click', function (e) {
-    showTotalProductSelling();
-});
-
-$('#buttonShowProductExpired').on('click', function (e) {
-    showProductExpired();
-});
-
-$('#buttonShowProductStock').on('click', function (e) {
-    showProductStock();
-});
-
-$('#buttonTxtStock').on('click', function (e) {
-    showProductStock();
-});
-
-$('#buttonTxtExpired').on('click', function (e) {
-    showProductExpired();
-});
-
-$('#txtStock').on('keyup', function (e) {
-    if (e.which === 13) {
-        showProductStock();
-    }
-});
-
-$('#txtExpired').on('keyup', function (e) {
-    if (e.which === 13) {
-        showProductExpired();
-    }
-});
+$('#txtStock').on('keyup', function (e) {if (e.which === 13) {showProductStock();}});
+$('#txtExpired').on('keyup', function (e) {if (e.which === 13) {showProductExpired();}});
 
 $(document).ready(function () {
     showOmset();

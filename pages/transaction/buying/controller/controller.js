@@ -120,10 +120,10 @@ else{
 });
 
 $("#buttonCancel").click(function(){
-enabledFormCart();
-clearFormCart();
-$('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
-$('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
+  enabledFormCart();
+  clearFormCart();
+  $('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
+  $('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
 });
 
 enabledFormCart();
@@ -168,7 +168,7 @@ function disabledFormCart(){
 }
 
 function enabledFormCart(){
-  document.getElementById('buttonSearch').disabled = false;
+  // document.getElementById('buttonSearch').disabled = false;
   document.getElementById('buttonAddCart').disabled = false;
   document.getElementById('buttonCancel').disabled = false;
   document.getElementById('c_buying_product_name').disabled = false;
@@ -181,14 +181,14 @@ function enabledFormCart(){
 }
 
 function clearFormCart(){
-$('#c_buying_product_name').val('');
-$('#c_buying_product_code').val('');
-$('#c_buying_product_qty').val('');
-$('#c_buying_price').val('');
-$('#c_product_expire').val('');
-$('#c_batch_code').val('');
-$('#c_id_buying').val('');
-$('#c_buying_product_name').focus();
+  $('#c_buying_product_name').val('');
+  $('#c_buying_product_code').val('');
+  $('#c_buying_product_qty').val('');
+  $('#c_buying_price').val('');
+  $('#c_product_expire').val('');
+  $('#c_batch_code').val('');
+  $('#c_id_buying').val('');
+  $('#c_buying_product_name').focus();
 }
 
 // datepicker

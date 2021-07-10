@@ -1,23 +1,33 @@
 <?php 
 include('../../../config/config.php'); 
 
-$product_code_delete = mysqli_escape_string($config, $_POST['product_code_delete']);
-$product_name_delete = mysqli_escape_string($config, $_POST['product_name_delete']);
+if (!empty($_SESSION['login'])) {
 
-$deleteExecution = mysqli_query($config, "DELETE FROM tb_buying_cart WHERE product_code_relation = '$product_code_delete' AND user_name = '$sessionUser' AND outlet_code_relation = '$system_outlet_code' ");
+	$product_code_delete = $_GET['product_code_delete'];
 
-if ($deleteExecution) {
-	echo "<script>
+	$deleteExecution = mysqli_query($config, "DELETE FROM tb_selling_cart WHERE product_code_relation = '$product_code_delete' AND user_name = '$sessionUser' AND outlet_code_relation = '$system_outlet_code' ");
+
+	if ($deleteExecution) {
+		echo "<script>
 			closeForm();
-			toastr['success']('Berhasil Hapus Item ".$product_name_delete."');
-			LoadCartTransaction();
-			$('#buttonHapus').html('Hapus');
-	</script>";
-}else{
-	echo "Ada Error Pada Query Delete!
-	<script>
-	      document.getElementById('buttonHapus').disabled = false;
-	      document.getElementById('buttonCancel').disabled = false;
-	      document.getElementById('buttonClose').disabled = false;
-		</script>";
+			toastr['success']('Berhasil Hapus Item ".$product_code_delete."', 'success');
+			LoadCartTransaction();</script>";
+	}else{
+		echo "Ada Error Pada Query Delete!
+		<script>
+			document.getElementById('buttonHapus').disabled = false;
+			document.getElementById('buttonCancel').disabled = false;
+			document.getElementById('buttonClose').disabled = false;
+			</script>";
+	}
+	
 }
+elseif (empty($_SESSION['login'])) {
+    ?>
+    <script type="text/javascript">
+        alert("sesi anda habis, silahkan login kembali");
+        window.location="<?php echo $base_url."" ?>";
+    </script>
+<?php
+}	
+?>

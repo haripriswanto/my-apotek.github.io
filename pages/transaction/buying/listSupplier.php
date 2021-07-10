@@ -42,7 +42,7 @@
                 $supplier_phone         = $row['supplier_phone'];
                 $website                = $row['website'];
                     ?>
-                    <tr id="select_supplier" style="cursor: pointer;" supplier_code="<?php echo $supplier_code; ?>" supplier_code_hide="<?php echo $supplier_code; ?>"  supplier_name="<?php echo $supplier_name ?>">
+                    <tr id="select_supplier" style="cursor: pointer;" supplier_code="<?php echo $supplier_code; ?>" supplier_name="<?php echo $supplier_name ?>">
                         <td><?php echo $supplier_code; ?></td>
                         <td><?php echo $supplier_name; ?></td>
                         <td><?php echo $supplier_address; ?></td>
@@ -61,7 +61,6 @@
 //jika dipilih, nim akan masuk ke input dan modal di tutup
     $(document).on('click', '#select_supplier', function (e) {
         document.getElementById("supplier_code").value = $(this).attr('supplier_code');
-        document.getElementById("supplier_code_hide").value = $(this).attr('supplier_code_hide');
         document.getElementById("supplier_name").value = $(this).attr('supplier_name');
         $('#listSupplier').modal('hide');
         document.getElementById('c_buying_product_name').focus(); 

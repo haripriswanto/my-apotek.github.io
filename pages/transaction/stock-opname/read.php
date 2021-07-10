@@ -65,4 +65,15 @@
       $('#buttonSave').html('<span class="fa fa-pencil"></span> Update');
       $('#headerForm').html('Update Data');
   });
+
+  $('#insertDokter').on('show.bs.modal', function (e) {
+    $("#fetchDataInsertDokter").html(loadingImage);
+    $.ajax({
+      type: 'get',
+      url: 'pages/transaction/dokter/insert.php',
+      success: function (data) {
+        $('#fetchDataInsertDokter').html(data); //menampilkan data ke dalam modal
+      }
+    });
+  });
 </script>

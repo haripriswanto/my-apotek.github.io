@@ -87,14 +87,6 @@ if (!empty($_SESSION['login'])) {
             body {
                 font-size: 11px;
             }
-
-            /*.form-control{
-        height:3%;
-        margin-top:0%;
-    }
-    .form-group{
-        margin: 2px;
-    }*/
         </style>
 
 
@@ -369,7 +361,7 @@ if (!empty($_SESSION['login'])) {
             "onclick": null,
             "showDuration": "200",
             "hideDuration": "900",
-            "timeOut": "4000",
+            "timeOut": "3000",
             "extendedTimeOut": "900",
             "showEasing": "swing",
             "hideEasing": "linear",

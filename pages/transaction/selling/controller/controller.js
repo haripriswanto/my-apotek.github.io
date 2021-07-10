@@ -552,7 +552,7 @@ $('#cancelSellingCheckoutConfirm').on('show.bs.modal', function (e) {
   $("#loadCancelCheckoutConfirm").html(loadingImage);
   $.ajax({
     type: 'GET',
-    url: 'pages/transaction/selling/cartCancelConfirm.php',
+    url: 'pages/transaction/selling/preview/cartCancelConfirm.php',
     success: function (data) {
       $('#loadCancelCheckoutConfirm').html(data); //menampilkan data ke dalam modal
     }

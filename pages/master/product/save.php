@@ -54,7 +54,12 @@ else{
       $queryInsertLogData = mysqli_query($config, $insertLogData);
 
       if ($queryInsertLogData) {
-        echo "<script>toastr['success']('Berhasil Insert Data Produk ".$i_product_name."';clearInsertForm();loadData();closeForm();</script>";
+        echo "<script>
+                toastr['success']('Berhasil Insert Data Produk ".$i_product_name."');
+                clearInsertForm();
+                loadData();
+                closeForm();
+              </script>";
       }else{
         echo "Gagal Insert Log Activity";
       }

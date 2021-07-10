@@ -1,6 +1,8 @@
 <?php
 include("../config/config.php");
 
+if (!empty($_SESSION['login'])) {
+
 $product_code   = $_POST['product_code'];
 $quantity       = $_POST['quantity'];
 
@@ -60,4 +62,16 @@ $query_cart =  mysqli_query($config, "
             }
         }
 
-        ?>
+
+
+
+}
+elseif (empty($_SESSION['login'])) {
+    ?>
+    <script type="text/javascript">
+        alert("sesi anda habis, silahkan login kembali");
+        window.location="<?php echo $base_url."" ?>";
+    </script>
+<?php
+}
+?>

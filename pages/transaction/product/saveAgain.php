@@ -29,7 +29,7 @@
 
 $querySelectData =  mysqli_query($config, "SELECT * FROM tb_master_product WHERE bl_state = 'A' AND outlet_code_relation = '$system_outlet_code' AND product_code ='$i_product_code' ");
 if (mysqli_num_rows($querySelectData)) {
-  echo "<script>enabledInsertForm();$.notify('Kode Produk ".$i_product_code." Sudah Ada', 'error'); $('#i_product_code').focus();</script>";
+  echo "<script>enabledInsertForm();toastr['error']('Kode Produk ".$i_product_code." Sudah Ada'); $('#i_product_code').focus();</script>";
 }
 else{
   $insertData = "INSERT INTO tb_master_product(id_product, product_code, product_name, product_description, price_min, price_max, price_margin, buying_price, selling_price, category_code_relation, unit_code_relation, outlet_code_relation, ts_insert, bl_state)
@@ -50,7 +50,11 @@ else{
               VALUES ( '".sha1(generate(10))."', '$currentDate "." $currentTime', 'INSERT', 'Menambahkan Data Produk ".$i_product_name."' , 'A', '$ip_address', '$sessionUser', '$os', '$browser')";
       $queryInsertLogActivity = mysqli_query($config, $insertLogActivity);
       if ($queryInsertLogActivity) {
-        echo "<script>$.notify('Berhasil Insert Data Produk ".$i_product_name."', 'success');clearInsertForm();enabledInsertForm()</script>";
+        echo "<script>
+                toastr['success']('Berhasil Insert Data Produk ".$i_product_name."');
+                clearInsertForm();
+                enabledInsertForm()
+              </script>";
       }else{
         echo "Gagal Insert Log Activity";
       }

@@ -8,7 +8,10 @@ if (!empty($_SESSION['login'])) {
 	$deleteExecution = mysqli_query($config, "DELETE FROM tb_selling_cart WHERE product_code_relation = '$product_code_delete' AND user_name = '$sessionUser' AND outlet_code_relation = '$system_outlet_code' ");
 
 	if ($deleteExecution) {
-		echo "<script>closeForm();$.notify('Berhasil Hapus Item ".$product_code_delete."', 'success');LoadCartTransaction();</script>";
+		echo "<script>
+			closeForm();
+			toastr['success']('Berhasil Hapus Item ".$product_code_delete."', 'success');
+			LoadCartTransaction();</script>";
 	}else{
 		echo "Ada Error Pada Query Delete!
 		<script>

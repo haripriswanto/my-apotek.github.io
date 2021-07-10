@@ -252,11 +252,11 @@
              <script src="<?php echo $base_url . "pages/transaction/selling/controller/controller.js" ?>" type="text/javascript"></script>
 
 
-             <?php
-                // log Activity
-                $insertLogData = log_insert('READ', 'Akses Menu Transaksi Penjualan', $ip_address, $os, $browser);
-                $queryInsertLogData = mysqli_query($config, $insertLogData);
-                if (!$queryInsertLogData) {
-                    echo "<span class='alert alert-danger'>Error Query Insert Log</span>";
-                }
-                ?>
+ <?php
+    // log Activity
+    $insertLogData = log_insert('READ', 'Akses Menu Transaksi Penjualan', $ip_address, $os, $browser);
+    $queryInsertLogData = mysqli_query($config, $insertLogData);
+    if (!$queryInsertLogData) {
+        echo "<span class='alert alert-danger'>Error Query Insert Log</span>";
+    }
+?>
