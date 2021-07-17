@@ -192,6 +192,8 @@ function clearFormCart(){
   $('#c_batch_code').val('');
   // $('#c_id_buying').val('');
   $('#c_buying_product_name').focus();
+  $('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
+  $('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
 }
 
 // datepicker
@@ -210,45 +212,6 @@ $(function () {
 });
 
 
-// CHECKOUT
-// function actionCheckoutBuying() {
-//   var total_item_ = $('#total_item_').val();
-//   var total_harga_ = $('#total_harga_').val();
-//   var payment_type = $('#payment_type').val();
-//   var transaction_date = $('#transaction_date').val();
-//   var transaction_time = $('#transaction_time').val();
-//   var money_paid = $('#money_paid').val();
-//   // Supplier
-//   var supplier_code = $('#supplier_code').val();
-//   var supplier_name = $('#supplier_name').val();
-//   // Tambahan
-//   var transaction_date = $('#transaction_date').val();
-//   var transaction_time = $('#transaction_time').val();
-//   var cart_note = $('#cart_note').val();
-
-//   // Progress Load
-//   disableButton();
-//   $("#resultCheckoutBuying").html("<img src='<?php echo $base_url ?>assets/images/load.gif' width='50' height='50'/><font size='2'>Sedang Proses...</font>");
-//   // Result
-//   $.ajax({
-//     type: "get",
-//     url: "<?php echo $base_url . "pages/transaction/buying/transactionCheckout.php" ?>",
-//     data: 'total_item_=' + total_item_ + '&total_harga_=' + total_harga_ + '&payment_type=' + payment_type + '&transaction_date=' + transaction_date + '&transaction_time=' + transaction_time + '&cart_note=' + cart_note + '&money_paid=' + money_paid + '&supplier_code=' + supplier_code + '&supplier_name=' + supplier_name + '&transaction_date=' + transaction_date + '&transaction_time=' + transaction_time + '&cart_note=' + cart_note + '&updatePrice=' + updatePrice,
-//     success: function(data) {
-//       $("#resultCheckoutBuying").html(data);
-//     }
-//   });
-// }
-
-// function disableButton() {
-//   document.getElementById('submitSellingCheckout').disabled = true;
-//   document.getElementById('cancelSellingCheckout').disabled = true;
-// }
-
-// function enableButton() {
-//   document.getElementById('submitSellingCheckout').disabled = false;
-//   document.getElementById('cancelSellingCheckout').disabled = false;
-// }
 
 // CHECKOUT
 function actionCheckoutBuying(){

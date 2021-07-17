@@ -131,24 +131,13 @@
                                  function disable(status) {
                                      status = status;
                                  }
-                                 //  $(document).ready(function() {
-                                 //      $("#c_buying_product_name").autocomplete({
-                                 //          //  source: fakedata,
-                                 //          source: "<?= $base_url . "pages/transaction/buying/listProducts.php"; ?>", // Kode php untuk prosesing data
-                                 //          dataType: "JSON", // Tipe data JSON
-                                 //          onSelect: function(data) {
-                                 //              $("#c_buying_product_name").val(data.name);
-                                 //              $("#c_id_buying").val(data.name);
-                                 //          }
-                                 //      });
-                                 //  })
                              </script>
 
                              <div class="form-group text-right">
                                  <button type="submit" data-toggle="tooltip" data-placement="bottom" title="Tambah Produk" class="btn btn-default" id="buttonAddCart"><span class="fa fa-plus-circle"></span id="buttonCaption"> Tambah</button>
                                  <button type="reset" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Membatal kan Pencarian" id="buttonCancel"><span class="fa fa-eraser"></span> Bersih</button>
                              </div>
-                             <div id="resultCartBuying"></div>
+                             <div id="resultCartBuying" class="table-responsive"></div>
                          </div>
                          <div class="clearfix">
                              <hr>
@@ -165,7 +154,7 @@
                          </div>
                          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                              <label>Nama Kasir</label>
-                             <input type="text" name="cashier" id="cashier" class="form-control tooltips" value="<?php echo $sessionUser ?>">
+                             <input type="text" name="cashier" id="cashier" class="form-control tooltips disabled" value="<?php echo $sessionUser ?>">
                          </div>
                          </tbody>
                          </table>
