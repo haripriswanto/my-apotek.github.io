@@ -44,7 +44,7 @@ if (!empty($_SESSION['login'])) {
     <head>
 
         <meta charset="utf-8">
-        <link rel="icon" href="<?php echo $base_url . "assets/images/store.png" ?>">
+        <link rel="icon" href="<?= $base_url . "assets/images/store.png" ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
@@ -52,28 +52,29 @@ if (!empty($_SESSION['login'])) {
 
         <title><?php echo $system_title; ?></title>
 
-        <link href="<?php echo $base_url . "assets/bower_components/font-awesome-4.7.0/css/font-awesome.min.css" ?>" rel="stylesheet" type="text/css">
-        <link href="<?php echo $base_url . "assets/bower_components/bootstrap/dist/css/bootstrap.min.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/jquery-ui/jquery-ui.css" ?>" rel="stylesheet" type="text/css">
-        <link href="<?php echo $base_url . "assets/css/bootstrap-select.min.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/css/timeline.css" ?>" rel="stylesheet" type="text/css" />
-        <link href="<?php echo $base_url . "assets/css/style.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/bower_components/metisMenu/dist/metisMenu.min.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/dist/css/sb-admin-2.css" ?>" rel="stylesheet">
-        <link href="<?php echo $base_url . "assets/css/toastr.min.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/bower_components/font-awesome-4.7.0/css/font-awesome.min.css" ?>" rel="stylesheet" type="text/css">
+        <link href="<?= $base_url . "assets/bower_components/bootstrap/dist/css/bootstrap.min.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/jquery-ui/jquery-ui.css" ?>" rel="stylesheet" type="text/css">
+        <link href="<?= $base_url . "assets/css/bootstrap-select.min.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/css/timeline.css" ?>" rel="stylesheet" type="text/css" />
+        <link href="<?= $base_url . "assets/css/style.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/bower_components/metisMenu/dist/metisMenu.min.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/dist/css/sb-admin-2.css" ?>" rel="stylesheet">
+        <link href="<?= $base_url . "assets/css/toastr.min.css" ?>" rel="stylesheet">
 
-        <script src="<?php echo $base_url . "assets/bower_components/jquery/dist/jquery.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/raphael/raphael-min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/morrisjs/morris.min.js" ?>"></script>
-        <!-- <script src="<?php echo $base_url . "assets/js/notify.js" ?>"></script> -->
-        <script src="<?php echo $base_url . "assets/js/sweetalert.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/printjs/print.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/js/chart.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/js/toastr.min.js" ?>"></script>
-        <!-- query Select -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="<?= $base_url . "assets/bower_components/jquery/dist/jquery.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/raphael/raphael-min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/morrisjs/morris.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/js/notify.js" ?>"></script>
+        <script src="<?= $base_url . "assets/js/sweetalert.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/printjs/print.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/js/chart.js" ?>"></script>
+        <script src="<?= $base_url . "assets/js/toastr.min.js" ?>"></script>
+
+        <!-- Bootstrap Select
+        <script src="<?= $base_url . "assets/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"; ?>"></script>
+        <link href="<?= $base_url . "assets/bootstrap-select-1.13.14/dist/css/bootstrap-select.css"; ?>" rel="stylesheet" type="text/css"> -->
 
         <style type="text/css" media="screen">
             .close {
@@ -103,7 +104,7 @@ if (!empty($_SESSION['login'])) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $base_url . "home" ?>"><?php echo $system_header; ?></a>
+                    <a class="navbar-brand" href="<?= $base_url . "home" ?>"><?php echo $system_header; ?></a>
                 </div>
                 <!-- /.navbar-header -->
                 <ul class="nav navbar-top-links navbar-right">
@@ -161,9 +162,9 @@ if (!empty($_SESSION['login'])) {
                                 <i class="fa fa-sliders fa-fw"></i> System <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="<?php echo $base_url . "user" ?>"><i class="fa fa-user-o fa-fw"></i> System User</a></li>
-                                <li><a href="<?php echo $base_url . "user-role" ?>"><i class="fa fa-building fa-fw"></i> System Role Akses</a></li>
-                                <li><a href="<?php echo $base_url . "menu" ?>"><i class="fa fa-list fa-fw"></i> System Menu</a></li>
+                                <li><a href="<?= $base_url . "user" ?>"><i class="fa fa-user-o fa-fw"></i> System User</a></li>
+                                <li><a href="<?= $base_url . "user-role" ?>"><i class="fa fa-building fa-fw"></i> System Role Akses</a></li>
+                                <li><a href="<?= $base_url . "menu" ?>"><i class="fa fa-list fa-fw"></i> System Menu</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -171,7 +172,7 @@ if (!empty($_SESSION['login'])) {
                                 <i class="fa fa-cogs fa-fw"></i> Setup <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="<?php echo $base_url . "setting" ?>"><i class="fa fa-wrench fa-fw"></i> Setting</a></li>
+                                <li><a href="<?= $base_url . "setting" ?>"><i class="fa fa-wrench fa-fw"></i> Setting</a></li>
                             </ul>
                         </li>
                     <?php } ?>
@@ -193,7 +194,7 @@ if (!empty($_SESSION['login'])) {
                     $querySelectDepartmentAccess = mysqli_query($config, $selectDepartmentAccess);
                     while ($rowSelectDepartmentAccess = mysqli_fetch_array($querySelectDepartmentAccess)) {
                     ?>
-                            <li><a href="<?php echo $base_url . $rowSelectDepartmentAccess['department_code'] ?>"><i class="fa fa-user-o fa-fw"></i> <?= $rowSelectDepartmentAccess['department_description']; ?></a></li>
+                            <li><a href="<?= $base_url . $rowSelectDepartmentAccess['department_code'] ?>"><i class="fa fa-user-o fa-fw"></i> <?= $rowSelectDepartmentAccess['department_description']; ?></a></li>
                         <?php } ?>
                     </ul>
                 </li> -->
@@ -215,7 +216,7 @@ if (!empty($_SESSION['login'])) {
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="<?php echo $base_url . "home" ?>"><i class="fa fa-home fa-fw"></i> Home</a>
+                                <a href="<?= $base_url . "home" ?>"><i class="fa fa-home fa-fw"></i> Home</a>
                             </li>
                             <?php
                             $selectAccessMenu = "SELECT tb_system_menu.id, tb_system_menu.menu_description, tb_system_menu.menu_url, tb_system_menu.menu_icon
@@ -251,7 +252,7 @@ if (!empty($_SESSION['login'])) {
                                         while ($rowseSectSubMenu = mysqli_fetch_array($querySelectSubMenu)) {
                                         ?>
                                             <li>
-                                                <a href="<?php echo $base_url . $rowseSectSubMenu['sub_menu_url']; ?>"><i class=" fa-fw fa fa-<?= $rowseSectSubMenu['sub_menu_icon']; ?>"></i> <?= $rowseSectSubMenu['sub_menu_description']; ?></a>
+                                                <a href="<?= $base_url . $rowseSectSubMenu['sub_menu_url']; ?>"><i class=" fa-fw fa fa-<?= $rowseSectSubMenu['sub_menu_icon']; ?>"></i> <?= $rowseSectSubMenu['sub_menu_description']; ?></a>
                                             </li>
                                         <?php } ?>
                                     </ul>
@@ -270,15 +271,15 @@ if (!empty($_SESSION['login'])) {
             </div>
         </div>
 
-        <!-- <script src="<?php echo $base_url . "assets/js/bootstrap3-typeahead.min.js" ?>"></script> -->
-        <script src="<?php echo $base_url . "assets/bower_components/bootstrap/dist/js/bootstrap.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/metisMenu/dist/metisMenu.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/datatables/media/js/jquery.dataTables.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/bower_components/datatables-responsive/js/dataTables.responsive.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/dist/js/sb-admin-2.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/jquery-ui/jquery-ui.js" ?>"></script>
-        <script src="<?php echo $base_url . "assets/ajax/controller-dashboard.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/bootstrap/dist/js/bootstrap.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/metisMenu/dist/metisMenu.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/datatables/media/js/jquery.dataTables.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" ?>"></script>
+        <script src="<?= $base_url . "assets/bower_components/datatables-responsive/js/dataTables.responsive.js" ?>"></script>
+        <script src="<?= $base_url . "assets/dist/js/sb-admin-2.js" ?>"></script>
+        <script src="<?= $base_url . "assets/jquery-ui/jquery-ui.js" ?>"></script>
+        <script src="<?= $base_url . "assets/ajax/controller-dashboard.js" ?>"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
 
         <?php
         $CheckSystemSetting =  mysqli_query($config, "SELECT * FROM tb_system_setting ");
@@ -305,7 +306,7 @@ if (!empty($_SESSION['login'])) {
                             <div class="panel-body text-center">
                                 <h5>Sistem Setting Belum di Ubah, Silahkan klik menu setting lalu input data setting untuk melanjutkan Transaksi lainnya.</h5>
                                 <div class="modal-footer">
-                                    <a href="<?php echo $base_url . "setting" ?>" class="btn btn-success"><span class="fa fa-wrench"></span> Setting</a>
+                                    <a href="<?= $base_url . "setting" ?>" class="btn btn-success"><span class="fa fa-wrench"></span> Setting</a>
                                 </div>
                             </div>
                         </div>
@@ -373,10 +374,10 @@ if (!empty($_SESSION['login'])) {
         $('#clickProfile').on('show.bs.modal', function(e) {
             var id_profile = $(e.relatedTarget).data('id');
             // LOADING
-            $('#fetchDataProfile').html('<center><img src="<?php echo $base_url . "assets/images/load.gif" ?>" width="50" height="50"/><i> Sedang Proses ...</i></center>');
+            $('#fetchDataProfile').html('<center><img src="<?= $base_url . "assets/images/load.gif" ?>" width="50" height="50"/><i> Sedang Proses ...</i></center>');
             $.ajax({
                 type: 'post',
-                url: '<?php echo $base_url . "pages/profile/profile.php"; ?>',
+                url: '<?= $base_url . "pages/profile/profile.php"; ?>',
                 data: 'id_profile=' + id_profile,
                 success: function(data) {
                     $('#fetchDataProfile').html(data); //menampilkan data ke dalam modal
@@ -386,8 +387,8 @@ if (!empty($_SESSION['login'])) {
 
 
         function logoutSession() {
-            $("#contentProgress").html("<center><img src='<?php echo $base_url . "assets/images/load.gif" ?>' width='50' height='50'/><i> Sedang Proses ...</i></center>");
-            $("#contentProgress").load('<?php echo $base_url . "pages/login/logout-validate.php" ?>');
+            $("#contentProgress").html("<center><img src='<?= $base_url . "assets/images/load.gif" ?>' width='50' height='50'/><i> Sedang Proses ...</i></center>");
+            $("#contentProgress").load('<?= $base_url . "pages/login/logout-validate.php" ?>');
         }
 
         $("#clickLogout").click(function(event) {
@@ -441,7 +442,7 @@ if (!empty($_SESSION['login'])) {
 ?>
     <script type="text/javascript">
         alert("sesi anda habis, silahkan login kembali");
-        window.location = "<?php echo $base_url . "" ?>";
+        window.location = "<?= $base_url . "" ?>";
     </script>
 <?php
 }
