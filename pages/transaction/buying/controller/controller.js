@@ -18,9 +18,7 @@ $('#insertProduct').on('show.bs.modal', function (e) {
 	});
 });
 
-$(document).ready(function () {
-    $('#supplier_name').focus(); 
-})
+
 // Add To Cart 
 $('#supplier_name').keyup(function(e) {
   if(e.keyCode == 13) {
@@ -30,7 +28,7 @@ $('#supplier_name').keyup(function(e) {
 // Add To Cart 
 $('#c_buying_product_qty').keyup(function(e) {
   if(e.keyCode == 13) {
-    if ($('#c_buying_product_qty').val() < 1) {
+    if ($('#c_buying_product_qty').val() <= 0) {
         toastr['error']('Jumlah Produk Harus Diisi!');
         $('#c_buying_product_qty').focus();
     }else if ($('#c_buying_product_qty').val()!='') {
@@ -40,7 +38,7 @@ $('#c_buying_product_qty').keyup(function(e) {
 });
 $('#c_buying_price').keyup(function(e) {
   if(e.keyCode == 13) {
-    if ($('#c_buying_price').val() < 1) {
+    if ($('#c_buying_price').val() <= 0) {
         toastr['error']('Harga Produk Harus Diisi!');
         $('#c_buying_price').focus();
     }else if ($('#c_buying_price').val() != '') {
@@ -55,7 +53,7 @@ $('#c_product_expire').keyup(function(e) {
 });
 $('#c_batch_code').keyup(function(e) {
   if(e.keyCode == 13) {
-    if ($('#c_batch_code').val() < 1) {
+    if ($('#c_batch_code').val() <= 0) {
         toastr['error']('Kode Batch Harus Diisi!');
         $('#c_batch_code').focus();
     }else if ($('#c_batch_code').val() != '') {
@@ -71,35 +69,35 @@ return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
 // Ajax Login 
 function actionCartTransaction(){
-  // var c_id_buying              = $('#c_id_buying').val();
-  var c_buying_product_name    = $('#c_buying_product_name').val();
-  var c_buying_product_code    = $('#c_buying_product_code').val();
-  var c_buying_product_qty     = $('#c_buying_product_qty').val();
-  var c_buying_price           = $('#c_buying_price').val();
-  var c_product_expire         = $('#c_product_expire').val();
-  var c_batch_code             = $('#c_batch_code').val();
+var c_id_buying              = $('#c_id_buying').val();
+var c_buying_product_name    = $('#c_buying_product_name').val();
+var c_buying_product_code    = $('#c_buying_product_code').val();
+var c_buying_product_qty     = $('#c_buying_product_qty').val();
+var c_buying_price           = $('#c_buying_price').val();
+var c_product_expire         = $('#c_product_expire').val();
+var c_batch_code             = $('#c_batch_code').val();
 
-  if(c_buying_product_code != ""){
-      // Progress Load
-      disabledFormCart();
-      // Result
-      $.ajax({
-          url:"pages/transaction/buying/saveToCart.php",
-          type:"post",
-          data:{
-              // c_id_buying: c_id_buying,
-              c_buying_product_name: c_buying_product_name,
-              c_buying_product_code: c_buying_product_code,
-              c_buying_product_qty: c_buying_product_qty,
-              c_buying_price: c_buying_price,
-              c_product_expire: c_product_expire,
-              c_batch_code: c_batch_code
-          },
-          success:function(data){
-            $("#resultCartBuying").html(data);
-          }
-      });
-    }
+if(c_buying_product_code != ""){
+    // Progress Load
+    disabledFormCart();
+    // Result
+    $.ajax({
+        type:"post",
+        url:"pages/transaction/buying/saveToCart.php",
+        data:{
+            c_id_buying: c_id_buying,
+            c_buying_product_name: c_buying_product_name,
+            c_buying_product_code: c_buying_product_code,
+            c_buying_product_qty: c_buying_product_qty,
+            c_buying_price: c_buying_price,
+            c_product_expire: c_product_expire,
+            c_batch_code: c_batch_code
+        },
+        success:function(data){
+          $("#resultCartBuying").html(data);
+        }
+    });
+  }
 }
 
 $("#buttonAddCart").click(function(){
@@ -107,11 +105,11 @@ if ($('#c_buying_product_name').val()=='') {
     $("#listProduct").modal("show");
     $("#c_buying_product_name").focus();        
 }
-else if ($('#c_buying_product_qty').val()  < 1) {
+else if ($('#c_buying_product_qty').val()  <= 0) {
     toastr['error']('Jumlah Produk Harus Diisi!');
     $("#c_buying_product_qty").focus();        
 }
-else if ($('#product_price').val()  < 1) {
+else if ($('#product_price').val()  <= 0) {
     toastr['error']('Harga Produk Harus Diisi!');
     $("#product_price").focus();          
 }
@@ -122,10 +120,10 @@ else{
 });
 
 $("#buttonCancel").click(function(){
-  enabledFormCart();
-  clearFormCart();
-  $('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
-  $('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
+enabledFormCart();
+clearFormCart();
+$('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
+$('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
 });
 
 enabledFormCart();
@@ -133,17 +131,16 @@ clearFormCart();
 
 function disableFormCheckout() {
   document.getElementById('cart_note').disabled = true;
-  document.getElementById('cashier').disabled = true;
   document.getElementById('cancelBuyingCheckout').disabled = true;
-  document.getElementById('buttonConfirmCheckout').disabled = true;
-  // document.getElementById('update_price').disabled = true;
+  document.getElementById('submitBuyingCheckout').disabled = true;
+  document.getElementById('update_price').disabled = true;
 }
 
 function enableFormCheckout() {
   document.getElementById('cart_note').disabled = false;
   document.getElementById('cancelBuyingCheckout').disabled = false;
-  document.getElementById('buttonConfirmCheckout').disabled = false;
-  // document.getElementById('update_price').disabled = false;
+  document.getElementById('submitBuyingCheckout').disabled = false;
+  document.getElementById('update_price').disabled = false;
   $('#cart_note').val('');
 }
 
@@ -167,11 +164,11 @@ function disabledFormCart(){
   document.getElementById('c_buying_price').disabled = true;
   document.getElementById('c_product_expire').disabled = true;
   document.getElementById('c_batch_code').disabled = true;
-  // document.getElementById('c_id_buying').disabled = true;
+  document.getElementById('c_id_buying').disabled = true;
 }
 
 function enabledFormCart(){
-  // document.getElementById('buttonSearch').disabled = false;
+  document.getElementById('buttonSearch').disabled = false;
   document.getElementById('buttonAddCart').disabled = false;
   document.getElementById('buttonCancel').disabled = false;
   document.getElementById('c_buying_product_name').disabled = false;
@@ -180,20 +177,18 @@ function enabledFormCart(){
   document.getElementById('c_buying_price').disabled = false;
   document.getElementById('c_product_expire').disabled = false;
   document.getElementById('c_batch_code').disabled = false;
-  // document.getElementById('c_id_buying').disabled = false;
+  document.getElementById('c_id_buying').disabled = false;
 }
 
 function clearFormCart(){
-  $('#c_buying_product_name').val('');
-  $('#c_buying_product_code').val('');
-  $('#c_buying_product_qty').val('');
-  $('#c_buying_price').val('');
-  $('#c_product_expire').val('');
-  $('#c_batch_code').val('');
-  // $('#c_id_buying').val('');
-  $('#c_buying_product_name').focus();
-  $('#buttonAddCart').html('<span class="fa fa-plus-circle"></span> Tambah');
-  $('#buttonCancel').html('<span class="fa fa-eraser"></span> Bersih');
+$('#c_buying_product_name').val('');
+$('#c_buying_product_code').val('');
+$('#c_buying_product_qty').val('');
+$('#c_buying_price').val('');
+$('#c_product_expire').val('');
+$('#c_batch_code').val('');
+$('#c_id_buying').val('');
+$('#c_buying_product_name').focus();
 }
 
 // datepicker
@@ -210,11 +205,6 @@ $( function() {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
-
-$('#buttonCheckout').click(function () {
-  actionCheckoutBuying();
-});
-
 // CHECKOUT
 function actionCheckoutBuying(){
   if ($("#c_buying_product_code").val() != '' ) {
@@ -236,17 +226,17 @@ function actionCheckoutBuying(){
     var transaction_time    = $('#transaction_time').val();
     var cart_note           = $('#cart_note').val();
 
-    // var updatePrice = [];
-    //   $('#update_price').each(function(){
-    //     if($(this).is(":checked")){
-    //      updatePrice.push($(this).val());
-    //     }
-    //   });
-    //  updatePrice = updatePrice.toString();
+    var updatePrice = [];
+      $('#update_price').each(function(){
+        if($(this).is(":checked")){
+         updatePrice.push($(this).val());
+        }
+      });
+     updatePrice = updatePrice.toString();
 
       // Progress Load
       disableButton();
-      $("#buttonCheckout").html("<center><img src='assets/images/load.gif' width='25' height='25'/><font size='2'>Proses...</font></center>")
+      $("#submitBuyingCheckout").html("<center><img src='assets/images/load.gif' width='25' height='25'/><font size='2'>Proses...</font></center>")
       // Result
       $.ajax({
           type:"get",
@@ -264,27 +254,27 @@ function actionCheckoutBuying(){
             transaction_date:transaction_date,
             transaction_time:transaction_time,
             cart_note:cart_note,
-            // updatePrice:updatePrice
+            updatePrice:updatePrice
           },
           success:function(data){
-            $("#buttonConfirmCheckout").html(data);
+            $("#submitBuyingCheckout").html(data);
           }
       });
   }
 }
 
 function disableButton(){
-  document.getElementById('buttonConfirmCheckout').disabled = true;
+  document.getElementById('submitBuyingCheckout').disabled = true;
   document.getElementById('cancelBuyingCheckout').disabled = true;
 }
 function enableButton(){
-  document.getElementById('buttonConfirmCheckout').disabled = false;
+  document.getElementById('submitBuyingCheckout').disabled = false;
   document.getElementById('cancelBuyingCheckout').disabled = false;
 }
 
-// $('#buttonConfirmCheckout').click(function(e){
-//   actionCheckoutBuying();
-// });
+$('#submitBuyingCheckout').click(function(e){
+  actionCheckoutBuying();
+});
 
 $(document).on('dblclick', '#selectProductCart', function (e) {
   $("#c_buying_product_code").val($(this).attr('data-product-code'));
@@ -313,18 +303,27 @@ $('#cancelBuyingCheckoutConfirm').on('show.bs.modal', function (e) {
     });
  });
 
-$(".buttonDeleteItem").click(function(event) {$("#deleteDataCart").show( 'clip', 800 );});
 
-//Delete Produk
+// datepicker
+$( function() {
+    $( ".datepicker" ).datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange:"-10:+10"
+      });
+    }
+);
+
+$("#buttonDeleteItem").click(function(event) {$("#deleteDataCart").show( 'clip', 800 );});
+//Insert Produk
 $('#deleteDataCart').on('show.bs.modal', function (e) {
   var productCodeDelete = $(e.relatedTarget).data('id');
   $("#fetchDeleteDataCart").html("<center><img src='assets/images/load.gif' width='50' height='50'/><br><i> Sedang Proses ...</i></center>");
   $.ajax({
-    type : 'post',
+    type : 'get',
     url : 'pages/transaction/buying/cartDeleteItemConfirm.php',
-    data:{
-      productCodeDelete : productCodeDelete
-    },
+    data:'productCodeDelete='+productCodeDelete,
     success : function(data){
     $('#fetchDeleteDataCart').html(data);//menampilkan data ke dalam modal
     }
@@ -382,18 +381,18 @@ function goToSupplier(){
 
 
 // EDIT SELLING PRICE
-// $('#editSellingPrice').on('show.bs.modal', function (e) {
-//     var id_product = $(e.relatedTarget).data('id'); 
-//     $("#fetchEditSellingPrice").html("<center><img src='assets/images/load.gif' width='50' height='50'/><font size='2'>Sedang Proses...</font></center>");
-//     $.ajax({
-//         type : 'post',
-//         url : '/pages/master_edit_selling_price.php',
-//         data :  'id_product='+ id_product,
-//         success : function(data){
-//         $('#fetchEditSellingPrice').html(data); //menampilkan data ke dalam modal
-//         }
-//     });
-//  });
+$('#editSellingPrice').on('show.bs.modal', function (e) {
+    var id_product = $(e.relatedTarget).data('id'); 
+    $("#fetchEditSellingPrice").html("<center><img src='assets/images/load.gif' width='50' height='50'/><font size='2'>Sedang Proses...</font></center>");
+    $.ajax({
+        type : 'post',
+        url : '/pages/master_edit_selling_price.php',
+        data :  'id_product='+ id_product,
+        success : function(data){
+        $('#fetchEditSellingPrice').html(data); //menampilkan data ke dalam modal
+        }
+    });
+ });
 
 // Search Suplier
 $('#listSupplier').on('show.bs.modal', function (e) {

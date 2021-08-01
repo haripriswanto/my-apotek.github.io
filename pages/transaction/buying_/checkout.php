@@ -11,6 +11,7 @@ if (!empty($_SESSION['login'])) {
 	$transactionTime = mysqli_escape_string($config, $_POST['transaction_time']);
 	$cart_note       = mysqli_escape_string($config, $_POST['cart_note']);
 
+
 ?>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -43,6 +44,7 @@ if (!empty($_SESSION['login'])) {
 								</div>
 							</div>
 							<div class="row">
+								<div class="label">Tgl: <?= $transactionDate . " " . $transactionTime; ?></div>
 								<div class="col-md-12">
 									<legend></legend>
 								</div>
@@ -251,18 +253,18 @@ if (!empty($_SESSION['login'])) {
 			var card_number = $('#card_number').val();
 
 			console.log(
-				total_harga_,
-				total_item_,
-				supplier_code,
-				supplier_name,
-				transactionDate,
-				transactionTime,
-				cart_note,
-				payment_type,
-				nominal_cash,
-				nominal_debit,
-				name_card,
-				card_number,
+				'tHarga: ' + total_harga_,
+				'total_item_: ' + total_item_,
+				'supplier_code: ' + supplier_code,
+				'supplier_name: ' + supplier_name,
+				'transactionDate: ' + transactionDate,
+				'transactionTime: ' + transactionTime,
+				'cart_note: ' + cart_note,
+				'payment_type: ' + payment_type,
+				'nominal_cash: ' + nominal_cash,
+				'nominal_debit: ' + nominal_debit,
+				'name_card: ' + name_card,
+				'card_number: ' + card_number,
 			);
 			enableButtonCheckout();
 
@@ -272,7 +274,7 @@ if (!empty($_SESSION['login'])) {
 				$("#resultCartCheckout").html("<img src='<?php echo $base_url ?>assets/images/load.gif' width='25' height='25'/><font size='1' color='orange'>Sedang Proses...</font>");
 				// Progress
 				$.ajax({
-					type: "post",
+					type: "POST",
 					url: "<?php echo $base_url . "pages/transaction/buying/transactionCheckout.php"; ?>",
 					data: {
 						nominal_cash: nominal_cash,
@@ -288,6 +290,7 @@ if (!empty($_SESSION['login'])) {
 						cart_note: cart_note,
 						payment_type: payment_type,
 					},
+					cache: false,
 					success: function(data) {
 						$("#resultCartCheckout").html(data);
 					}
