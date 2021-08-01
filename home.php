@@ -71,12 +71,6 @@ if (!empty($_SESSION['login'])) {
         <script src="<?= $base_url . "assets/printjs/print.min.js" ?>"></script>
         <script src="<?= $base_url . "assets/js/chart.js" ?>"></script>
         <script src="<?= $base_url . "assets/js/toastr.min.js" ?>"></script>
-        <!-- <script src="<?= $base_url . "assets/vueJs/vue.js"; ?>"></script> -->
-
-
-        <!-- Bootstrap Select
-        <script src="<?= $base_url . "assets/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"; ?>"></script>
-        <link href="<?= $base_url . "assets/bootstrap-select-1.13.14/dist/css/bootstrap-select.css"; ?>" rel="stylesheet" type="text/css"> -->
 
         <style type="text/css" media="screen">
             .close {
@@ -330,10 +324,12 @@ if (!empty($_SESSION['login'])) {
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="panel-body" id="contentProgress">
-                    <h3>Klik Logout Untuk Keuar.</h3>
+                    <h3>Yakin ingin logout ?</h3>
                     <legend></legend>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                    <a id="clickLogout" class="btn btn-danger">Logout</a>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" data-dismiss="modal">Batal</button>
+                        <button id="clickLogout" class="btn btn-danger">Logout</button>
+                    </div>
                 </div>
             </div>
         </div>
