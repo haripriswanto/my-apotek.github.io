@@ -135,14 +135,14 @@ function disableFormCheckout() {
   document.getElementById('cart_note').disabled = true;
   document.getElementById('cashier').disabled = true;
   document.getElementById('cancelBuyingCheckout').disabled = true;
-  document.getElementById('submitBuyingCheckout').disabled = true;
+  document.getElementById('buttonConfirmCheckout').disabled = true;
   // document.getElementById('update_price').disabled = true;
 }
 
 function enableFormCheckout() {
   document.getElementById('cart_note').disabled = false;
   document.getElementById('cancelBuyingCheckout').disabled = false;
-  document.getElementById('submitBuyingCheckout').disabled = false;
+  document.getElementById('buttonConfirmCheckout').disabled = false;
   // document.getElementById('update_price').disabled = false;
   $('#cart_note').val('');
 }
@@ -211,7 +211,9 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
 
-
+$('#buttonCheckout').click(function () {
+  actionCheckoutBuying();
+});
 
 // CHECKOUT
 function actionCheckoutBuying(){
@@ -244,7 +246,7 @@ function actionCheckoutBuying(){
 
       // Progress Load
       disableButton();
-      $("#submitBuyingCheckout").html("<center><img src='assets/images/load.gif' width='25' height='25'/><font size='2'>Proses...</font></center>")
+      $("#buttonCheckout").html("<center><img src='assets/images/load.gif' width='25' height='25'/><font size='2'>Proses...</font></center>")
       // Result
       $.ajax({
           type:"get",
@@ -265,24 +267,24 @@ function actionCheckoutBuying(){
             // updatePrice:updatePrice
           },
           success:function(data){
-            $("#submitBuyingCheckout").html(data);
+            $("#buttonConfirmCheckout").html(data);
           }
       });
   }
 }
 
 function disableButton(){
-  document.getElementById('submitBuyingCheckout').disabled = true;
+  document.getElementById('buttonConfirmCheckout').disabled = true;
   document.getElementById('cancelBuyingCheckout').disabled = true;
 }
 function enableButton(){
-  document.getElementById('submitBuyingCheckout').disabled = false;
+  document.getElementById('buttonConfirmCheckout').disabled = false;
   document.getElementById('cancelBuyingCheckout').disabled = false;
 }
 
-$('#submitBuyingCheckout').click(function(e){
-  actionCheckoutBuying();
-});
+// $('#buttonConfirmCheckout').click(function(e){
+//   actionCheckoutBuying();
+// });
 
 $(document).on('dblclick', '#selectProductCart', function (e) {
   $("#c_buying_product_code").val($(this).attr('data-product-code'));

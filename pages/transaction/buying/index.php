@@ -47,13 +47,6 @@
                                          <?php include('master_time.php'); ?>
                                      </select>
                                  </div>
-                                 <!-- <div class="clearfix"><br></div> -->
-                                 <div class="form-group">
-                                     <input type="hidden" class="form-control tooltips" id="customer_code" name="customer_code" placeholder="Kode Pelanggan">
-                                 </div>
-                                 <!-- <div class="form-group">
-	                                <input type="text" id="supplier_code_hide" name="supplier_code_hide" placeholder="Kode" style="width: 65%" class="form-control" disabled="">
-	                            </div> -->
                              </div>
                          </div>
                      </div>
@@ -74,13 +67,13 @@
                                      <button type="button" class="btn btn-default tooltips" name="cancelBuyingCheckout" id="cancelBuyingCheckout" data-toggle="modal" data-target="#cancelBuyingCheckoutConfirm" title="Batal Transaksi">
                                          <span class="fa fa-trash"></span> Batal
                                      </button>
-                                     <button type="button" class="btn btn-success tooltips" name="submitBuyingCheckout" id="submitBuyingCheckout" data-toggle="modal" data-target="#submitBuyingCheckoutConfirm" title="Selesaikan Transaksi">
+                                     <button type="button" class="btn btn-success tooltips" name="submitBuyingCheckout" id="buttonConfirmCheckout" data-toggle="modal" data-target="#submitBuyingCheckoutConfirm" title="Selesaikan Transaksi">
                                          <span class="fa fa-save"></span> Checkout
                                      </button>
                                  </div>
                              </div>
                              <style type="text/css">
-                                 #submitBuyingCheckout {
+                                 #buttonConfirmCheckout {
                                      height: 50px;
                                      width: 140px;
                                      font-size: 20px
@@ -162,6 +155,38 @@
                      </div>
                  </div>
              </div>
+
+             <script>
+                 $('#buttonConfirmCheckout').click(function() {
+                     $('#submitBuyingCheckoutConfirm').on('show.bs.modal', function(e) {
+                         var total_harga_ = $('#total_harga_').val();
+                         var total_item_ = $('#total_item_').val();
+                         var supplier_code = $('#supplier_code').val();
+                         var supplier_name = $('#supplier_name').val();
+                         var transaction_date = $('#transaction_date').val();
+                         var transaction_time = $('#transaction_time').val();
+                         var cart_note = $('#cart_note').val();
+
+                         //  $("#loadCheckoutConfirm").html(loadingImage);
+                         $.ajax({
+                             type: 'POST',
+                             url: 'pages/transaction/buying/checkout.php',
+                             data: {
+                                 total_harga_: total_harga_,
+                                 total_item_: total_item_,
+                                 supplier_code: supplier_code,
+                                 supplier_name: supplier_name,
+                                 transaction_date: transaction_date,
+                                 transaction_time: transaction_time,
+                                 cart_note: cart_note,
+                             },
+                             success: function(data) {
+                                 $('#loadCheckoutConfirm').html(data); //menampilkan data ke dalam modal
+                             }
+                         });
+                     });
+                 })
+             </script>
 
              <!-- Cancel Checkout -->
              <div class="modal fade" id="cancelBuyingCheckoutConfirm" data-backdrop="static" data-keyboard="false">

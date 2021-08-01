@@ -1,5 +1,5 @@
-<?php 
-  include('../../../config/config.php');
+<?php
+include('../../../config/config.php');
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -8,10 +8,12 @@
     </div>
     <div class="panel-body">
         <a data-toggle="modal" data-target='#insertDokter' id="buttonAddDokter" title="Tambah Data Dokter" class="btn btn-primary" data-backdrop="static" data-keyboard="false">
-          <span class="fa fa-plus-circle"></span> Tambah Data
+            <span class="fa fa-plus-circle"></span> Tambah Data
         </a>
         <div class="row">
-            <div class="col-md-12"><hr></div>
+            <div class="col-md-12">
+                <hr>
+            </div>
         </div>
         <table id="lookupDokter" class="table table-bordered table-hover table-striped">
             <thead>
@@ -37,8 +39,8 @@
 
 
                 $number = 0;
-                while ($rowSelectDataDokter = mysqli_fetch_array($querySelectDataDokter)){
-                    $number                 = $number + 1 ;
+                while ($rowSelectDataDokter = mysqli_fetch_array($querySelectDataDokter)) {
+                    $number                 = $number + 1;
                     $id_dokter              = $rowSelectDataDokter['id_dokter'];
                     $dokter_code            = $rowSelectDataDokter['dokter_code'];
                     $dokter_type            = $rowSelectDataDokter['dokter_type'];
@@ -52,12 +54,12 @@
                     $bl_state               = $rowSelectDataDokter['bl_state'];
 
                 ?>
-                <tr id="select_dokter" style="cursor: pointer;" dokter_code="<?php echo $dokter_code; ?>" dokter_code_hide="<?php echo $dokter_code; ?>"  dokter_name="<?php echo $dokter_name ?>">
-                    <td><?php echo $dokter_code; ?></td>
-                    <td><?php echo $dokter_name; ?></td>
-                    <td><?php echo $dokter_type; ?></td>
-                    <td><?php echo $dokter_address; ?></td>
-                </tr>
+                    <tr id="select_dokter" style="cursor: pointer;" dokter_code="<?php echo $dokter_code; ?>" dokter_code_hide="<?php echo $dokter_code; ?>" dokter_name="<?php echo $dokter_name ?>">
+                        <td><?php echo $dokter_code; ?></td>
+                        <td><?php echo $dokter_name; ?></td>
+                        <td><?php echo $dokter_type; ?></td>
+                        <td><?php echo $dokter_address; ?></td>
+                    </tr>
                 <?php
                 }
                 ?>
@@ -67,15 +69,16 @@
 </div>
 
 <script type="text/javascript">
-
     $('#buttonAddDokter').click(function() {
         $("#listDokter").modal("hide");
     });
 
-    function insertDokter() {$("#insertDokter").show( 'clip', 800 );};
+    function insertDokter() {
+        $("#buttonAddDokter").show('slide', 800);
+    };
 
     //jika dipilih, nim akan masuk ke input dan modal di tutup
-    $(document).on('click', '#select_dokter', function (e) {
+    $(document).on('click', '#select_dokter', function(e) {
         document.getElementById("dokter_code").value = $(this).attr('dokter_code');
         document.getElementById("dokter_code_hide").value = $(this).attr('dokter_code_hide');
         document.getElementById("dokter_name").value = $(this).attr('dokter_name');
@@ -84,11 +87,10 @@
             $('#listProduct').modal('show');
         }
         document.getElementById('c_selling_product_name').focus();
-    });            
-
-    //tabel lookup Produk
-    $(function () {
-        $("#lookupDokter").dataTable();
     });
 
+    //tabel lookup Produk
+    $(function() {
+        $("#lookupDokter").dataTable();
+    });
 </script>

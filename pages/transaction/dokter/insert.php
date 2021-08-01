@@ -1,11 +1,10 @@
-
-<?php 
-  include('../../../config/config.php');
+<?php
+include('../../../config/config.php');
 ?>
-  
+
 <div class="panel-heading">
-    <b>Tambah Data</b>
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="buttonCloseDokter">&times;</button>
+  <b>Tambah Data</b>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="buttonCloseDokter">&times;</button>
 </div>
 <div class="panel-body">
   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -47,7 +46,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <legend></legend>
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-      <div id="resultInsert"></div>
+      <div id="resultInsertDokter"></div>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
       <button type="submit" class="btn btn-primary" id="buttonInsertDokter">Simpan</button>
@@ -57,91 +56,109 @@
 </div>
 
 <script type="text/javascript">
-
   $('#i_dokter_name').focus();
 
   // Save i_dokter
-  function saveDokter(){
-    var i_dokter_name     = $('#i_dokter_name').val();
-    var i_dokter_type     = $('#i_dokter_type').val();
-    var i_dokter_email    = $('#i_dokter_email').val();
-    var i_dokter_phone    = $('#i_dokter_phone').val();
-    var i_dokter_address  = $('#i_dokter_address').val();
+  function saveDokter() {
+    var i_dokter_name = $('#i_dokter_name').val();
+    var i_dokter_type = $('#i_dokter_type').val();
+    var i_dokter_email = $('#i_dokter_email').val();
+    var i_dokter_phone = $('#i_dokter_phone').val();
+    var i_dokter_address = $('#i_dokter_address').val();
 
 
     // Validation Form
     if ($('#i_dokter_name').val() == '') {
-      $.notify("Nama Dokter Harus Diisi!", "error");
+      toastr.error("Nama Dokter Harus Diisi!", "error");
       $('#i_dokter_name').focus();
-    }else if ($('#i_dokter_type').val() == '') {
-      $.notify("Pilih Jenis Dokter Dulu!", "error");
+    } else if ($('#i_dokter_type').val() == '') {
+      toastr.error("Pilih Jenis Dokter Dulu!", "error");
       $('#i_dokter_type').focus();
-    }else if ($('#i_dokter_phone').val() == '') {
-      $.notify("No Telp Harus Di Isi!", "error");
+    } else if ($('#i_dokter_phone').val() == '') {
+      toastr.error("No Telp Harus Di Isi!", "error");
       $('#i_dokter_phone').focus();
-    }else if ($('#i_dokter_address').val() == '') {
-      $.notify("Alamat nya Diisi Lengkap ya!", "error");
+    } else if ($('#i_dokter_address').val() == '') {
+      toastr.error("Alamat nya Diisi Lengkap ya!", "error");
       $('#i_dokter_address').focus();
-    }else{
+    } else {
       // AJAX Insert
       document.getElementById('buttonInsertDokter').disabled = true;
       document.getElementById('buttonCancelDokter').disabled = true;
       document.getElementById('buttonCloseDokter').disabled = true;
-      $("#resultInsert").html("<center><img src='<?php echo $base_url."assets/images/load.gif" ?>' width='35' height='35'/><i> Sedang Proses ...</i></center>");
+      $("#resultInsertDokter").html("<center><img src='<?php echo $base_url . "assets/images/load.gif" ?>' width='35' height='35'/><i> Sedang Proses ...</i></center>");
       $.ajax({
-          type:"get",
-          url:"<?php echo $base_url."pages/transaction/dokter/save.php" ?>",
-          data:"i_dokter_name="+i_dokter_name+"&i_dokter_type="+i_dokter_type+"&i_dokter_email="+i_dokter_email+"&i_dokter_email="+i_dokter_email+"&i_dokter_phone="+i_dokter_phone+"&i_dokter_address="+i_dokter_address,
-          success:function(data){
-            $("#resultInsert").html(data);
-          }
-      });      
+        type: "get",
+        url: "<?php echo $base_url . "pages/transaction/dokter/save.php" ?>",
+        data: {
+          i_dokter_name: i_dokter_name,
+          i_dokter_type: i_dokter_type,
+          i_dokter_email: i_dokter_email,
+          i_dokter_email: i_dokter_email,
+          i_dokter_phone: i_dokter_phone,
+          i_dokter_address: i_dokter_address,
+        },
+        cache: false,
+        success: function(data) {
+          $("#resultInsertDokter").html(data);
+        }
+      });
     }
   }
 
   $('#i_dokter_name').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#i_dokter_name').val() == '') {
-        $.notify("Nama Dokter Harus Di Isi!", "error");
+        toastr.error("Nama Dokter Harus Di Isi!", "error");
         $('#i_dokter_name').focus();
-      }else {$('#i_dokter_type').focus();}
+      } else {
+        $('#i_dokter_type').focus();
+      }
     }
   });
   $('#i_dokter_type').change(function(e) {
     if ($('#i_dokter_type').val() == '') {
-      $.notify("Pilih Jenis Dokter Dulu!", "error");
+      toastr.error("Pilih Jenis Dokter Dulu!", "error");
       $('#i_dokter_type').focus();
-    }else {$('#i_dokter_email').focus();}
+    } else {
+      $('#i_dokter_email').focus();
+    }
   });
   $('#i_dokter_email').keyup(function(e) {
-    if(e.keyCode == 13) {
-      var atpos  = $('#i_dokter_email').val().indexOf("@");
+    if (e.keyCode == 13) {
+      var atpos = $('#i_dokter_email').val().indexOf("@");
       var dotpos = $('#i_dokter_email').val().lastIndexOf(".");
       if ($('#i_dokter_email').val() != '') {
-        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=$('#i_dokter_email').val().length){
-          $.notify("cth: info@domain.com", "error");
-        }else {$('#i_dokter_phone').focus();}
-      }else {$('#i_dokter_phone').focus();}
+        if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= $('#i_dokter_email').val().length) {
+          toastr.error("cth: info@domain.com", "error");
+        } else {
+          $('#i_dokter_phone').focus();
+        }
+      } else {
+        $('#i_dokter_phone').focus();
+      }
     }
   });
   $('#i_dokter_phone').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#i_dokter_phone').val() == '') {
-        $.notify("No Telp Harus Di Isi!", "error");
+        toastr.error("No Telp Harus Di Isi!", "error");
         $('#i_dokter_phone').focus();
-      }else {$('#i_dokter_address').focus();}
+      } else {
+        $('#i_dokter_address').focus();
+      }
     }
   });
   $('#i_dokter_address').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#i_dokter_address').val() == '') {
-        $.notify("Alamat nya Diisi Lengkap ya!", "error");
+        toastr.error("Alamat nya Diisi Lengkap ya!", "error");
         $('#i_dokter_address').focus();
-      }else {$('#buttonInsertDokter').focus();}
+      } else {
+        $('#buttonInsertDokter').focus();
+      }
     }
   });
   $('#buttonInsertDokter').click(function(e) {
     saveDokter();
   });
-
 </script>

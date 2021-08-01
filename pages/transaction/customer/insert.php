@@ -1,20 +1,19 @@
-
-<?php 
-  include('../../../config/config.php');
+<?php
+include('../../../config/config.php');
 ?>
 
 <div class="panel-heading">
   <h3 class="panel-title">Tambah Data</h3>
 </div>
-  <div class="panel-body">
+<div class="panel-body">
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="form-group" id="code">
       <label for="">Kode Customer</label>
       <div class="input-group">
         <input type="text" class="form-control" name="customer_code" id="customer_code" placeholder="Kode Customer" title="Kode Customer">
         <span class="input-group-addon" id="basic-addon2" title="Jika Ceklis Aktif maka kode otomatis">
-            <input type="checkbox" name="auto_number" id="auto_number" checked="checked" value="1" onclick="autoCode(this.checked)">
-            Auto
+          <input type="checkbox" name="auto_number" id="auto_number" checked="checked" value="1" onclick="autoCode(this.checked)">
+          Auto
         </span>
       </div>
     </div>
@@ -38,45 +37,49 @@
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="form-group">
       <label for="">Tgl Lahir</label>
-        <input type="text" class="form-control datepicker" id="customer_birthday" name="customer_birthday" placeholder="Tgl Lahir" title="Tgl Lahir">
+      <input type="text" class="form-control datepicker" id="customer_birthday" name="customer_birthday" placeholder="Tgl Lahir" title="Tgl Lahir">
     </div>
   </div>
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="form-group">
       <label for="">Umur</label>
-        <input type="text" class="form-control" id="resultAge" name="resultAge" placeholder="Umur" title="Umur">
+      <input type="text" class="form-control" id="resultAge" name="resultAge" placeholder="Umur" title="Umur">
     </div>
   </div>
   <script type="text/javascript">
-    $(document).ready(function(){
-      $("#customer_birthday").keyup(function(){
+    $(document).ready(function() {
+      $("#customer_birthday").keyup(function() {
         var customer_birthday = $(this).val().trim();
-        if(customer_birthday != ''){            
-            $.ajax({
-                url: 'pages/transaction/customer/countAge.php',
-                type: 'post',
-                data: {customer_birthday: customer_birthday},
-                success: function(response){
-                  $('#resultAge').val(response);
-                }
-            });
-        }else{
-            $("#resultAge").val('');
+        if (customer_birthday != '') {
+          $.ajax({
+            url: 'pages/transaction/customer/countAge.php',
+            type: 'post',
+            data: {
+              customer_birthday: customer_birthday
+            },
+            success: function(response) {
+              $('#resultAge').val(response);
+            }
+          });
+        } else {
+          $("#resultAge").val('');
         }
       });
-      $("#customer_birthday").change(function(e){
+      $("#customer_birthday").change(function(e) {
         var customer_birthday = $(this).val().trim();
-        if(customer_birthday != ''){   
+        if (customer_birthday != '') {
           $.ajax({
-              url: 'pages/transaction/customer/countAge.php',
-              type: 'post',
-              data: {customer_birthday: customer_birthday},
-              success: function(response){
-                $('#resultAge').val(response);
-              }
+            url: 'pages/transaction/customer/countAge.php',
+            type: 'post',
+            data: {
+              customer_birthday: customer_birthday
+            },
+            success: function(response) {
+              $('#resultAge').val(response);
+            }
           });
-        }else{
-            $("#resultAge").val('');
+        } else {
+          $("#resultAge").val('');
         }
       });
     });
@@ -102,7 +105,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <legend></legend>
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-      <div id="resultInsert"></div>
+      <div id="resultInsertCustomer"></div>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
       <button type="submit" class="btn btn-primary" id="buttonInsertCustomer">Simpan</button>
@@ -113,140 +116,165 @@
 
 
 <script type="text/javascript">
-  document.getElementById('resultAge').disabled = true;  
+  document.getElementById('resultAge').disabled = true;
   // autoCheck
-  function autoCode(status){
-    status = status;   
+  function autoCode(status) {
+    status = status;
     document.getElementById('customer_code').disabled = status;
     $('#customer_code').focus();
   }
-    document.getElementById('customer_code').disabled = true;
-    $('#customer_name').focus();
+  document.getElementById('customer_code').disabled = true;
+  $('#customer_name').focus();
 
   // datepicker
-  $( function() {
+  $(function() {
     $(".datepicker").datepicker({
-        dateFormat: 'dd-mm-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange:"-99:+0"
-      });
-    }
-  );
+      dateFormat: 'dd-mm-yy',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-99:+0"
+    });
+  });
   // Save Customer
-  function saveCustomer(){
-    var auto_number       = $('#auto_number').val();
-    var customer_code     = $('#customer_code').val();
-    var customer_name     = $('#customer_name').val();
-    var customer_gender   = $('#customer_gender').val();
+  function saveCustomer() {
+    var auto_number = $('#auto_number').val();
+    var customer_code = $('#customer_code').val();
+    var customer_name = $('#customer_name').val();
+    var customer_gender = $('#customer_gender').val();
     var customer_birthday = $('#customer_birthday').val();
-    var customer_email    = $('#customer_email').val();
-    var customer_phone    = $('#customer_phone').val();
-    var customer_address  = $('#customer_address').val();
+    var customer_email = $('#customer_email').val();
+    var customer_phone = $('#customer_phone').val();
+    var customer_address = $('#customer_address').val();
 
     var autoNum = [];
-      $('#auto_number').each(function(){
-        if($(this).is(":checked")){
-         autoNum.push($(this).val());
-        }
-      });
-     autoNum = autoNum.toString();
+    $('#auto_number').each(function() {
+      if ($(this).is(":checked")) {
+        autoNum.push($(this).val());
+      }
+    });
+    autoNum = autoNum.toString();
 
     // Validation Form
     if ($('#auto_number').val() == '') {
       if ($('#customer_code').val() == '') {
-        $.notify("Kode Customer Tidak Boleh Kosong!", "error");
+        toastr.error("Kode Customer Tidak Boleh Kosong!", "error");
         $('#customer_code').focus();
       }
-    }else if ($('#customer_name').val() == '') {
-      $.notify("Nama Customer Harus Diisi!", "error");
+    } else if ($('#customer_name').val() == '') {
+      toastr.error("Nama Customer Harus Diisi!", "error");
       $('#customer_name').focus();
-    }else if ($('#customer_gender').val() == '') {
-      $.notify("Pilih Gender Customer Dulu!", "error");
+    } else if ($('#customer_gender').val() == '') {
+      toastr.error("Pilih Gender Customer Dulu!", "error");
       $('#customer_gender').focus();
-    }else if ($('#customer_birthday').val() == '') {
-      $.notify("Tgl Lahir Harus Di Isi!", "error");
+    } else if ($('#customer_birthday').val() == '') {
+      toastr.error("Tgl Lahir Harus Di Isi!", "error");
       $('#customer_birthday').focus();
-    }else if ($('#customer_phone').val() == '') {
-      $.notify("No Telp Harus Di Isi!", "error");
+    } else if ($('#customer_phone').val() == '') {
+      toastr.error("No Telp Harus Di Isi!", "error");
       $('#customer_phone').focus();
-    }else if ($('#customer_address').val() == '') {
-      $.notify("Alamat nya Diisi Lengkap ya!", "error");
+    } else if ($('#customer_address').val() == '') {
+      toastr.error("Alamat nya Diisi Lengkap ya!", "error");
       $('#customer_address').focus();
-    }else{
+    } else {
       // AJAX Insert
       disabledFormCustomer();
-      $("#resultInsert").html("<center><img src='<?php echo $base_url."assets/images/load.gif" ?>' width='35' height='35'/><i> Sedang Proses ...</i></center>");
+      $("#resultInsertCustomer").html("<center><img src='<?php echo $base_url . "assets/images/load.gif" ?>' width='35' height='35'/><i> Sedang Proses ...</i></center>");
       $.ajax({
-          type:"get",
-          url:"<?php echo $base_url."pages/transaction/customer/save.php" ?>",
-          data:"autoNum="+autoNum+"&customer_code="+customer_code+"&customer_name="+customer_name+"&customer_gender="+customer_gender+"&customer_birthday="+customer_birthday+"&customer_email="+customer_email+"&customer_email="+customer_email+"&customer_phone="+customer_phone+"&customer_address="+customer_address,
-          success:function(data){
-            $("#resultInsert").html(data);
-          }
-      });      
+        type: "POST",
+        url: "<?php echo $base_url . "pages/transaction/customer/save.php" ?>",
+        data: {
+          autoNum: autoNum,
+          customer_code: customer_code,
+          customer_name: customer_name,
+          customer_gender: customer_gender,
+          customer_birthday: customer_birthday,
+          customer_email: customer_email,
+          customer_email: customer_email,
+          customer_phone: customer_phone,
+          customer_address: customer_address,
+        },
+        // cache: false,
+        function(data) {
+          $("#resultInsertCustomer").html(data);
+        }
+      });
     }
   }
 
   $('#customer_code').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#customer_code').val() == '') {
-        $.notify("Kode Customer Harus Di Isi!", "error");
+        toastr.error("Kode Customer Harus Di Isi!", "error");
         $('#customer_code').focus();
-      }else {$('#customer_name').focus();}
+      } else {
+        $('#customer_name').focus();
+      }
     }
   });
   $('#customer_name').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#customer_name').val() == '') {
-        $.notify("Nama Customer Harus Di Isi!", "error");
+        toastr.error("Nama Customer Harus Di Isi!", "error");
         $('#customer_name').focus();
-      }else {$('#customer_gender').focus();}
+      } else {
+        $('#customer_gender').focus();
+      }
     }
   });
   $('#customer_gender').change(function(e) {
     if ($('#customer_gender').val() == '') {
-      $.notify("Pilih Gender Customer Dulu!", "error");
+      toastr.error("Pilih Gender Customer Dulu!", "error");
       $('#customer_gender').focus();
-    }else {$('#customer_birthday').focus();}
+    } else {
+      $('#customer_birthday').focus();
+    }
   });
   $('#customer_birthday').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#customer_birthday').val() == '') {
-        $.notify("Tgl Lahir Harus Di Isi!", "error");
+        toastr.error("Tgl Lahir Harus Di Isi!", "error");
         $('#customer_birthday').focus();
-      }else {$('#customer_email').focus();}
+      } else {
+        $('#customer_email').focus();
+      }
     }
   });
   $('#customer_email').keyup(function(e) {
-    if(e.keyCode == 13) {
-      var atpos  = $('#customer_email').val().indexOf("@");
+    if (e.keyCode == 13) {
+      var atpos = $('#customer_email').val().indexOf("@");
       var dotpos = $('#customer_email').val().lastIndexOf(".");
       if ($('#customer_email').val() != '') {
-        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=$('#customer_email').val().length){
-          $.notify("cth: info@domain.com", "error");
-        }else {$('#customer_phone').focus();}
-      }else {$('#customer_phone').focus();}
+        if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= $('#customer_email').val().length) {
+          toastr.error("cth: info@domain.com", "error");
+        } else {
+          $('#customer_phone').focus();
+        }
+      } else {
+        $('#customer_phone').focus();
+      }
     }
   });
   $('#customer_phone').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#customer_phone').val() == '') {
-        $.notify("No Telp Harus Di Isi!", "error");
+        toastr.error("No Telp Harus Di Isi!", "error");
         $('#customer_phone').focus();
-      }else {$('#customer_address').focus();}
+      } else {
+        $('#customer_address').focus();
+      }
     }
   });
   $('#customer_address').keyup(function(e) {
-    if(e.keyCode == 13) {
+    if (e.keyCode == 13) {
       if ($('#customer_address').val() == '') {
-        $.notify("Alamat nya Diisi Lengkap ya!", "error");
+        toastr.error("Alamat nya Diisi Lengkap ya!", "error");
         $('#customer_address').focus();
-      }else {$('#buttonInsertCustomer').focus();}
+      } else {
+        $('#buttonInsertCustomer').focus();
+      }
     }
   });
   $('#buttonInsertCustomer').click(function(e) {
     saveCustomer();
   });
-
 </script>

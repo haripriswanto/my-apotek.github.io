@@ -71,6 +71,8 @@ if (!empty($_SESSION['login'])) {
         <script src="<?= $base_url . "assets/printjs/print.min.js" ?>"></script>
         <script src="<?= $base_url . "assets/js/chart.js" ?>"></script>
         <script src="<?= $base_url . "assets/js/toastr.min.js" ?>"></script>
+        <!-- <script src="<?= $base_url . "assets/vueJs/vue.js"; ?>"></script> -->
+
 
         <!-- Bootstrap Select
         <script src="<?= $base_url . "assets/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"; ?>"></script>
