@@ -12,12 +12,16 @@ $('#insertProduct').on('show.bs.modal', function (e) {
 	$.ajax({
 	  type : 'get',
 	  url : 'pages/transaction/product/insert.php',
+    cache: false,
 	  success : function(data){
 	  $('#fetchDataInsertProduct').html(data);//menampilkan data ke dalam modal
 	  }
 	});
 });
 
+$(document).ready(function () {
+  $('#supplier_name').focus();
+})
 
 // Add To Cart 
 $('#supplier_name').keyup(function(e) {
@@ -46,6 +50,9 @@ $('#c_buying_price').keyup(function(e) {
     }
   }
 });
+$('#c_product_expire').change(function(e) {
+    $('#c_batch_code').focus();
+});
 $('#c_product_expire').keyup(function(e) {
   if(e.keyCode == 13) {
     $('#c_batch_code').focus();
@@ -64,7 +71,7 @@ $('#c_batch_code').keyup(function(e) {
 
 
 function formatNumber(num) {
-return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 // Ajax Login 
@@ -82,9 +89,9 @@ if(c_buying_product_code != ""){
     disabledFormCart();
     // Result
     $.ajax({
-        type:"post",
-        url:"pages/transaction/buying/saveToCart.php",
-        data:{
+        type: "post",
+        url: "pages/transaction/buying/saveToCart.php",
+        data: {
             c_id_buying: c_id_buying,
             c_buying_product_name: c_buying_product_name,
             c_buying_product_code: c_buying_product_code,
@@ -93,6 +100,7 @@ if(c_buying_product_code != ""){
             c_product_expire: c_product_expire,
             c_batch_code: c_batch_code
         },
+        cache: false,
         success:function(data){
           $("#resultCartBuying").html(data);
         }
@@ -133,15 +141,16 @@ function disableFormCheckout() {
   document.getElementById('cart_note').disabled = true;
   document.getElementById('cancelBuyingCheckout').disabled = true;
   document.getElementById('submitBuyingCheckout').disabled = true;
-  document.getElementById('update_price').disabled = true;
+  // document.getElementById('update_price').disabled = true;
+  $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan");
 }
 
 function enableFormCheckout() {
   document.getElementById('cart_note').disabled = false;
   document.getElementById('cancelBuyingCheckout').disabled = false;
   document.getElementById('submitBuyingCheckout').disabled = false;
-  document.getElementById('update_price').disabled = false;
-  $('#cart_note').val('');
+  // document.getElementById('update_price').disabled = false;
+  $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan");
 }
 
 
@@ -197,7 +206,7 @@ $( function() {
         dateFormat: 'yy-mm-dd',
         changeMonth: true,
         changeYear: true,
-        yearRange:"-1:+10"
+        yearRange:"-10:+10"
       });
     }
 ); 
@@ -211,13 +220,13 @@ function actionCheckoutBuying(){
     toastr['error']('Transaksi Belum Selesai!');
     $('#buttonAddCart').focus();
   } else {
-    var total_item_         = $('#total_item_').val();
-    var total_harga_        = $('#total_harga_').val();
+    var total_item_         = $('#totalItem_input').val();
+    var total_harga_        = $('#totalHarga_input').val();
+    var money_paid          = $('#moneyPaid_input').val();
     var payment_type        = $('#payment_type').val();
     var transaction_date    = $('#transaction_date').val();
     var transaction_time    = $('#transaction_time').val();
     var cart_note           = $('#cart_note').val();
-    var money_paid          = $('#money_paid').val();
     // Supplier
     var supplier_code       = $('#supplier_code').val();
     var supplier_name       = $('#supplier_name').val();
@@ -235,11 +244,11 @@ function actionCheckoutBuying(){
      updatePrice = updatePrice.toString();
 
       // Progress Load
-      disableButton();
+      disableFormCheckout();
       $("#submitBuyingCheckout").html("<center><img src='assets/images/load.gif' width='25' height='25'/><font size='2'>Proses...</font></center>")
       // Result
       $.ajax({
-          type:"get",
+          type:"POST",
           url:"pages/transaction/buying/transactionCheckout.php",
           data:{                    
             total_item_:total_item_,
@@ -256,6 +265,7 @@ function actionCheckoutBuying(){
             cart_note:cart_note,
             updatePrice:updatePrice
           },
+          cache: false,
           success:function(data){
             $("#submitBuyingCheckout").html(data);
           }
@@ -263,17 +273,23 @@ function actionCheckoutBuying(){
   }
 }
 
-function disableButton(){
-  document.getElementById('submitBuyingCheckout').disabled = true;
-  document.getElementById('cancelBuyingCheckout').disabled = true;
-}
-function enableButton(){
-  document.getElementById('submitBuyingCheckout').disabled = false;
-  document.getElementById('cancelBuyingCheckout').disabled = false;
-}
+// function disableButton(){
+//   document.getElementById('submitBuyingCheckout').disabled = true;
+//   document.getElementById('cancelBuyingCheckout').disabled = true;
+//   $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan");
+// }
+// function enableButton(){
+//   document.getElementById('submitBuyingCheckout').disabled = false;
+//   document.getElementById('cancelBuyingCheckout').disabled = false;
+//   $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan");
+// }
 
 $('#submitBuyingCheckout').click(function(e){
-  actionCheckoutBuying();
+  if (confirm('Yakin ingin menyelesaikan pembelian ?')) {
+    actionCheckoutBuying();
+  } else {
+      return false;
+  }
 });
 
 $(document).on('dblclick', '#selectProductCart', function (e) {
@@ -297,6 +313,7 @@ $('#cancelBuyingCheckoutConfirm').on('show.bs.modal', function (e) {
     $.ajax({
         type : 'get',
         url : 'pages/transaction/buying/cartCancelConfirm.php',
+        cache: false,
         success : function(data){
         $('#fetchCancelCheckout').html(data); //menampilkan data ke dalam modal
         }
@@ -323,7 +340,8 @@ $('#deleteDataCart').on('show.bs.modal', function (e) {
   $.ajax({
     type : 'get',
     url : 'pages/transaction/buying/cartDeleteItemConfirm.php',
-    data:'productCodeDelete='+productCodeDelete,
+    data: {productCodeDelete: productCodeDelete},
+    cache: false,
     success : function(data){
     $('#fetchDeleteDataCart').html(data);//menampilkan data ke dalam modal
     }
@@ -353,7 +371,10 @@ function loading(){
     $("#cartContentBuying").fadeIn("slow");
 };
 
-function LoadCartTransaction(){loading();$("#cartContentBuying").load('pages/transaction/buying/cartView.php')};
+function LoadCartTransaction(){
+  loading();
+  $("#cartContentBuying").load('pages/transaction/buying/cartView.php')
+};
 
 function isi_otomatis(){
     if(event.keyCode == 13){
@@ -362,9 +383,7 @@ function isi_otomatis(){
         var c_buying_product_qty   = $("[name='c_buying_product_qty']").val();
 
          if ($("#c_buying_product_code").val() == "" || $("#c_buying_product_name").val() == "") {
-            $(document).ready(function() {
-                $('#listProduct').modal('show');
-            })
+           $('#listProduct').modal('show');
         }
         else{
             $("#c_buying_product_qty").focus();                    
@@ -387,7 +406,8 @@ $('#editSellingPrice').on('show.bs.modal', function (e) {
     $.ajax({
         type : 'post',
         url : '/pages/master_edit_selling_price.php',
-        data :  'id_product='+ id_product,
+        data :  {id_product: id_product},
+        cache: false,
         success : function(data){
         $('#fetchEditSellingPrice').html(data); //menampilkan data ke dalam modal
         }
@@ -401,7 +421,8 @@ $('#listSupplier').on('show.bs.modal', function (e) {
     $.ajax({
         type : 'GET',
         url : 'pages/transaction/buying/listSupplier.php',
-        data :  'supplier_name='+ supplier_name,
+        data :  {supplier_name: supplier_name},
+        cache : false,
         success : function(data){
         $('#fetchedDataSupplier').html(data);//menampilkan data ke dalam modal
         }
@@ -415,7 +436,8 @@ $('#listProduct').on('show.bs.modal', function (e) {
     $.ajax({
         type : 'get',
         url : 'pages/transaction/buying/listProduct.php',
-        data :  'c_buying_product_name='+ c_buying_product_name,
+        data :  {c_buying_product_name: c_buying_product_name},
+        cache: false,
         success : function(data){
         $('#fetchDataProduct').html(data); //menampilkan data ke dalam modal
         }       
