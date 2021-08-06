@@ -150,7 +150,12 @@ function enableFormCheckout() {
   document.getElementById('cancelBuyingCheckout').disabled = false;
   document.getElementById('submitBuyingCheckout').disabled = false;
   // document.getElementById('update_price').disabled = false;
-  $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan");
+  $("#submitBuyingCheckout").html("<i class='fa fa-save'></i> Simpan"); 
+}
+
+function clearTotal() {
+  $('#totalItem').html("0");
+  $('#totalHarga').html("0");
 }
 
 
