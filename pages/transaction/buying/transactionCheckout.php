@@ -145,8 +145,8 @@ if (!empty($_SESSION['login']['user_name'])) {
 						disableFormCheckout();
 						LoadCartTransaction();
 						clearTotal();
-						clearSupplier();
 						clearFormCart();
+						clearSupplier();
 						toastr.success("Transaksi Berhasil", "Transaksi Berhasil Dengan No. <?php echo $invoice_number; ?>", "success");
 					});
 				</script>

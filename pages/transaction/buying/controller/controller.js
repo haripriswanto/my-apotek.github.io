@@ -366,6 +366,7 @@ function clearSupplier(){
     $('#supplier_name').val('');
     $('#supplier_code').val('');
     $('#supplier_code_hide').val('');
+    $('#supplier_name').focus();
 }
 
 
